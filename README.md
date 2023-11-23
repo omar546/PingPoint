@@ -19,7 +19,7 @@ Ping Point is a mobile app designed to help me and my friends to track the score
 
 ## Getting Started
 
-you can try it by downloading it directly from <a href="https://download1593.mediafire.com/o99tb2rggm2gX859KaNPXh9JDA6iquOAkK-Q9Z9VPSf_Gl7A5WG1ALJhKDG6OF_pkE2UfGl9dn3F-SBrSJW4nEvhXq2GZDO28foSTvWdZ2vXjlP4MDHFnvbtMsRIOLqJUOcXQ2P8lWTe9xosvJ0ptf_u8vEOGROVzcDWD7z7_tig/pff0c1pers5f7ru/PingPoint.apk">HERE</a></h3>
+you can try it by downloading it directly from <a href="https://download1528.mediafire.com/erz599eqhe1gGRy1bOLFuoVNzvtyNDwRezgjZj-18z3QlbCvdsG21WfWsrAwW8P07VPZA7tpLgaqzUZdHBHr-mlurXFfvROLFxW-aGm8wo1eJo1T0SoyPU9eo9RwYZnwdu5hFzdQMrqmicaBSt5ngliZREKazScCs4STT6minrU7/o1fx70zehvagmvx/PresPulseEG.apk">HERE</a></h3>
 
 
 
