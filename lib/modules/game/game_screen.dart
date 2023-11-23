@@ -177,7 +177,22 @@ class _GameScreenState extends State<GameScreen> {
       _showWinnerDialog('Player 1');
     } else if (score2 >= 21) {
       _showWinnerDialog('Player 2');
+    } else if (score1 == 0 && score2 == 7){
+      _showWinnerDialog('Player 2');
+    } else if (score2 == 0 && score1 == 7){
+      _showWinnerDialog('Player 1');
+    } else if ((score1 - score2) == 10 || (score2 - score1) ==10 ){
+      if (score1 > score2){
+        _showWinnerDialog('Player 1');
+      } else if (score1 < score2){
+        _showWinnerDialog('Player 2');
+      }
+    } else if (score1 == 1 && score2 ==9){
+    _showWinnerDialog('Player 2');
+    } else if (score2 == 1 && score1 ==9){
+    _showWinnerDialog('Player 1');
     }
+
   }
 
   // Show a pop-up with the winner

@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:ping_pong/modules/game/game_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -28,17 +27,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<BoardingModel> boarding = [
     BoardingModel(
         image: 'assets/images/onBoarding1.png',
-        body: 'I\'m Ano. I created this simple app for you',
+        body: 'I\'m Ano. I created this simple app for you\n Track your game score!',
         title: 'Hi!'),
     BoardingModel(
         image:'assets/images/onBoarding2.png',
-        body: 'Track your game score! \n long press the player\'s side \n to increase score.\n'
-            'tab the racket button to count a serve,\n and the thrown-ball button to start a new game ',
+        body: 'long press the player\'s side to increase score.\n',
         title: 'ping-pong!!'),
     BoardingModel(
         image: 'assets/images/onBoarding3.png',
-        body: 'Good luck <3',
-        title: 'For the \'W'),
+        body: 'tab the racket button to count a serve,\n and the thrown-ball button to start a new game ',
+        title: 'Good Luck <3'),
   ];
 
   bool isLast = false;
