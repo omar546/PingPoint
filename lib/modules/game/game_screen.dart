@@ -73,6 +73,7 @@ class _GameScreenState extends State<GameScreen> {
                   // Increment score for the red player
                   setState(() {
                     score1++;
+                    _handleServeCount();
                     _checkWinner();
                   });
                 },
@@ -82,9 +83,9 @@ class _GameScreenState extends State<GameScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 
-                      Text('Serves: $serveCount1/5', style: const TextStyle(color: MyColors.blackColor,fontSize: 15)),
+                      Text('$serveCount1/5', style: const TextStyle(color: MyColors.blackColor,fontSize: 20)),
                       const SizedBox(height: 10),
-                      Text('Score: $score1', style: const TextStyle(color: MyColors.blackColor, fontSize: 30, fontWeight: FontWeight.bold)),
+                      Text('$score1', style: const TextStyle(color: MyColors.blackColor, fontSize: 100, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -100,6 +101,7 @@ class _GameScreenState extends State<GameScreen> {
                   // Increment score for the blue player
                   setState(() {
                     score2++;
+                    _handleServeCount();
                     _checkWinner();
                     _saveGame();
                   });
@@ -109,9 +111,9 @@ class _GameScreenState extends State<GameScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Serves: $serveCount2/5', style: const TextStyle(color: MyColors.blackColor,fontSize: 15)),
+                      Text('$serveCount2/5', style: const TextStyle(color: MyColors.blackColor,fontSize: 20)),
                       const SizedBox(height: 10),
-                      Text('Score: $score2', style: const TextStyle(color: MyColors.blackColor, fontSize: 30, fontWeight: FontWeight.bold)),
+                      Text('$score2', style: const TextStyle(color: MyColors.blackColor, fontSize: 100, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -122,7 +124,7 @@ class _GameScreenState extends State<GameScreen> {
       ),
       floatingActionButton:
         Padding(
-          padding: const EdgeInsets.only(left:44),
+          padding: const EdgeInsets.only(left:35),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -136,15 +138,15 @@ class _GameScreenState extends State<GameScreen> {
           child: const Icon(Icons.network_ping_rounded),
       ),
 
-              FloatingActionButton(
-                heroTag: 'big',
-
-                onPressed: () {
-                  // Increment serve count for the current player
-                  _handleServeCount();
-                },
-                child: const Icon(Icons.sports_tennis_rounded),
-              ),
+              // FloatingActionButton(
+              //   heroTag: 'big',
+              //
+              //   onPressed: () {
+              //     // Increment serve count for the current player
+              //     _handleServeCount();
+              //   },
+              //   child: const Icon(Icons.sports_tennis_rounded),
+              // ),
             ],
           ),
         ),
