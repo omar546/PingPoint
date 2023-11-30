@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ping_pong/shared/styles/colors.dart';
-
+import 'package:vibration/vibration.dart';
 import '../../network/local/cache_helper.dart';
 
 class GameScreen extends StatefulWidget {
@@ -75,10 +75,12 @@ class _GameScreenState extends State<GameScreen> {
                     score1++;
                     _handleServeCount();
                     _checkWinner();
+                    _saveGame();
+                    Vibration.vibrate(duration: 1000);
                   });
                 },
                 child: Container(
-                  color: isServeRed ? MyColors.orangeColor : Colors.yellow,
+                  color: isServeRed ? MyColors.orangeColor : MyColors.whiteColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -104,10 +106,11 @@ class _GameScreenState extends State<GameScreen> {
                     _handleServeCount();
                     _checkWinner();
                     _saveGame();
+                    Vibration.vibrate(duration: 1000);
                   });
                 },
                 child: Container(
-                  color: !isServeRed ? MyColors.blueColor : Colors.yellow,
+                  color: !isServeRed ? MyColors.blueColor : MyColors.whiteColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
