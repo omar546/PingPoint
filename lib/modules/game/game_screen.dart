@@ -76,7 +76,7 @@ class _GameScreenState extends State<GameScreen> {
                     _handleServeCount();
                     _checkWinner();
                     _saveGame();
-                    Vibration.vibrate(duration: 1000);
+                    Vibration.vibrate(duration:100);
                   });
                 },
                 child: Container(
@@ -106,7 +106,7 @@ class _GameScreenState extends State<GameScreen> {
                     _handleServeCount();
                     _checkWinner();
                     _saveGame();
-                    Vibration.vibrate(duration: 1000);
+                    Vibration.vibrate(duration: 100);
                   });
                 },
                 child: Container(
