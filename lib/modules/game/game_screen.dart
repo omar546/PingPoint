@@ -179,23 +179,23 @@ class _GameScreenState extends State<GameScreen> {
   // Check for the winner and show a pop-up
   void _checkWinner() {
     if (score1 >= 21) {
-      _showWinnerDialog('Player 1');
+      _showWinnerDialog('RED');
     } else if (score2 >= 21) {
-      _showWinnerDialog('Player 2');
+      _showWinnerDialog('BLUE');
     } else if (score1 == 0 && score2 == 7){
-      _showWinnerDialog('Player 2');
+      _showWinnerDialog('BLUE');
     } else if (score2 == 0 && score1 == 7){
-      _showWinnerDialog('Player 1');
+      _showWinnerDialog('RED');
     } else if ((score1 - score2) == 10 || (score2 - score1) ==10 ){
       if (score1 > score2){
-        _showWinnerDialog('Player 1');
+        _showWinnerDialog('RED');
       } else if (score1 < score2){
-        _showWinnerDialog('Player 2');
+        _showWinnerDialog('BLUE');
       }
     } else if (score1 == 1 && score2 ==9){
-    _showWinnerDialog('Player 2');
+    _showWinnerDialog('BLUE');
     } else if (score2 == 1 && score1 ==9){
-    _showWinnerDialog('Player 1');
+    _showWinnerDialog('RED');
     }
 
   }
