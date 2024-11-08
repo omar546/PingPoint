@@ -13,9 +13,7 @@ Ping Point is a mobile app designed to help me and my friends to track the score
 
 
 ## Screenshot
-![on git hub show apps](https://github.com/omar546/PingPoint/assets/71936776/73505433-b7f0-4034-9d4e-02b1e6cf5757)
-
-
+![Screenshot_20241108_024448](https://github.com/user-attachments/assets/d5ab113a-8bd4-4cc2-9f95-ed250fe111c7)
 
 ## Getting Started
 
