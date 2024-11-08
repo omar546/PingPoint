@@ -31,11 +31,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         title: 'Hi!'),
     BoardingModel(
         image:'assets/images/onBoarding2.png',
-        body: 'long press the player\'s side to increase score.\n',
+        body: 'tap the player\'s side to increase score.\n long press to undo',
         title: 'ping-pong!!'),
     BoardingModel(
         image: 'assets/images/onBoarding3.png',
-        body: 'tab the racket button to count a serve,\n and the thrown-ball button to start a new game ',
+        body: 'tab the thrown-ball button to start a new game ',
         title: 'Good Luck <3'),
   ];
 

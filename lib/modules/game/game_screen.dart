@@ -16,6 +16,7 @@ class _GameScreenState extends State<GameScreen> {
   int serveCount1 = 0;
   int serveCount2 = 0;
   bool isServeRed = true; // Indicates if the red player is serving
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +43,6 @@ class _GameScreenState extends State<GameScreen> {
     await CacheHelper.saveData(key: 'isServeRed', value: isServeRed);
   }
 
-
   // Reset the game
   void _resetGame() {
     setState(() {
@@ -51,14 +51,13 @@ class _GameScreenState extends State<GameScreen> {
       serveCount1 = 0;
       serveCount2 = 0;
       isServeRed = true;
-      _saveGame(); // Save the game state after resetting
     });
+    _saveGame(); // Save the game state after resetting
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,28 +65,25 @@ class _GameScreenState extends State<GameScreen> {
             // Left half of the screen (Red player)
             Expanded(
               child: GestureDetector(
-                onTap: () {
-                  // Handle other tap actions as needed for this player
-                },
                 onLongPress: () {
-                  // Increment score for the red player
-                  setState(() {
-                    score1++;
-                    _handleServeCount();
-                    _checkWinner();
-                    _saveGame();
-                    Vibration.vibrate(duration:100);
-                  });
+                  _undoScore(true); // Undo for Red player
+                },
+                onTap: () {
+                  _incrementScore(true); // Increment score for Red player
                 },
                 child: Container(
                   color: isServeRed ? MyColors.orangeColor : MyColors.whiteColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
-                      Text('$serveCount1/5', style: const TextStyle(color: MyColors.blackColor,fontSize: 20)),
+                      Text('$serveCount1/5',
+                          style: const TextStyle(color: MyColors.blackColor, fontSize: 20)),
                       const SizedBox(height: 10),
-                      Text('$score1', style: const TextStyle(color: MyColors.blackColor, fontSize: 100, fontWeight: FontWeight.bold)),
+                      Text('$score1',
+                          style: const TextStyle(
+                              color: MyColors.blackColor,
+                              fontSize: 100,
+                              fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -96,27 +92,25 @@ class _GameScreenState extends State<GameScreen> {
             // Right half of the screen (Blue player)
             Expanded(
               child: GestureDetector(
-                onTap: () {
-                  // Handle other tap actions as needed for this player
-                },
                 onLongPress: () {
-                  // Increment score for the blue player
-                  setState(() {
-                    score2++;
-                    _handleServeCount();
-                    _checkWinner();
-                    _saveGame();
-                    Vibration.vibrate(duration: 100);
-                  });
+                  _undoScore(false); // Undo for Blue player
+                },
+                onTap: () {
+                  _incrementScore(false); // Increment score for Blue player
                 },
                 child: Container(
                   color: !isServeRed ? MyColors.blueColor : MyColors.whiteColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('$serveCount2/5', style: const TextStyle(color: MyColors.blackColor,fontSize: 20)),
+                      Text('$serveCount2/5',
+                          style: const TextStyle(color: MyColors.blackColor, fontSize: 20)),
                       const SizedBox(height: 10),
-                      Text('$score2', style: const TextStyle(color: MyColors.blackColor, fontSize: 100, fontWeight: FontWeight.bold)),
+                      Text('$score2',
+                          style: const TextStyle(
+                              color: MyColors.blackColor,
+                              fontSize: 100,
+                              fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -125,50 +119,72 @@ class _GameScreenState extends State<GameScreen> {
           ],
         ),
       ),
-      floatingActionButton:
-        Padding(
-          padding: const EdgeInsets.only(left:35),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FloatingActionButton(
-                heroTag: 'mini',
-                mini: true, // Set this to true to make the button smaller
-                onPressed: () {
-            // Reset the game
-            _resetGame();
-      },
-          child: const Icon(Icons.network_ping_rounded),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'reset',
+        heroTag: 'mini',
+        mini: true, // Set this to true to make the button smaller
+        onPressed: _resetGame,
+        child: const Icon(Icons.network_ping_rounded),
       ),
-
-              // FloatingActionButton(
-              //   heroTag: 'big',
-              //
-              //   onPressed: () {
-              //     // Increment serve count for the current player
-              //     _handleServeCount();
-              //   },
-              //   child: const Icon(Icons.sports_tennis_rounded),
-              // ),
-            ],
-          ),
-        ),
     );
   }
 
-  // Increment serve count for the current player
+  // Increment score for the specified player
+  void _incrementScore(bool isRedPlayer) {
+    setState(() {
+      if (isRedPlayer) {
+        score1++;
+      } else {
+        score2++;
+      }
+      _handleServeCount();
+      _checkWinner();
+      _saveGame();
+      Vibration.vibrate(duration: 100);
+    });
+  }
+
+  // Undo score for the specified player
+  void _undoScore(bool isRedPlayer) {
+    setState(() {
+      if (isRedPlayer && score1 > 0) {
+        score1--;
+      } else if (!isRedPlayer && score2 > 0) {
+        score2--;
+      }
+
+      if (isServeRed) {
+        if (serveCount1 > 0) {
+          serveCount1--;
+        }
+      } else {
+        if (serveCount2 > 0) {
+          serveCount2--;
+        }
+      }
+
+      // Check if we need to toggle the server back if serve count reaches 0
+      if ((isServeRed && serveCount1 == 0) || (!isServeRed && serveCount2 == 0)) {
+        isServeRed = !isServeRed;
+      }
+
+      _saveGame();
+      Vibration.vibrate(duration: 100);
+    });
+  }
+
+  // Increment serve count and handle serving player switch
   void _handleServeCount() {
     setState(() {
       if (isServeRed) {
         serveCount1++;
-        _saveGame();
       } else {
         serveCount2++;
-        _saveGame();
       }
 
+      // Change turn if serve count reaches 5
       if ((isServeRed && serveCount1 == 5) || (!isServeRed && serveCount2 == 5)) {
-        // Change turn and reset serve count
         isServeRed = !isServeRed;
         serveCount1 = 0;
         serveCount2 = 0;
@@ -182,22 +198,21 @@ class _GameScreenState extends State<GameScreen> {
       _showWinnerDialog('RED');
     } else if (score2 >= 21) {
       _showWinnerDialog('BLUE');
-    } else if (score1 == 0 && score2 == 7){
+    } else if (score1 == 0 && score2 == 7) {
       _showWinnerDialog('BLUE');
-    } else if (score2 == 0 && score1 == 7){
+    } else if (score2 == 0 && score1 == 7) {
       _showWinnerDialog('RED');
-    } else if ((score1 - score2) == 10 || (score2 - score1) ==10 ){
-      if (score1 > score2){
+    } else if ((score1 - score2) == 10 || (score2 - score1) == 10) {
+      if (score1 > score2) {
         _showWinnerDialog('RED');
-      } else if (score1 < score2){
+      } else if (score1 < score2) {
         _showWinnerDialog('BLUE');
       }
-    } else if (score1 == 1 && score2 ==9){
-    _showWinnerDialog('BLUE');
-    } else if (score2 == 1 && score1 ==9){
-    _showWinnerDialog('RED');
+    } else if (score1 == 1 && score2 == 9) {
+      _showWinnerDialog('BLUE');
+    } else if (score2 == 1 && score1 == 9) {
+      _showWinnerDialog('RED');
     }
-
   }
 
   // Show a pop-up with the winner
@@ -207,23 +222,14 @@ class _GameScreenState extends State<GameScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
           title: const Text('Game Over'),
           content: Text('$winner wins!'),
           actions: [
             TextButton(
               onPressed: () {
-                // Reset the scores, serve counts, and serve order
-                setState(() {
-                  score1 = 0;
-                  score2 = 0;
-                  serveCount1 = 0;
-                  serveCount2 = 0;
-                  isServeRed = true;
-                });
+                _resetGame();
                 Navigator.pop(context); // Close the dialog
               },
               child: const Text('Play Again'),
